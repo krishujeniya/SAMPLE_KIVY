@@ -1,0 +1,382 @@
+<CustomOneLineIconListItem>
+    IconLeftWidget:
+        icon: root.icon
+<Tab>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        padding: dp(20)
+        MDBoxLayout:
+            adaptive_height: True
+            MDTextField:
+                id: search_field
+                mode: "round"
+                hint_text: "search or type icon name"
+                icon_left:"magnify"
+                height: "35dp"
+                padding: dp(10)
+                pos_hint_text:{"center_x": 0.5, "center_y":0.5}
+                on_text: 
+                    root.set_list_md_icons(self.text, True)
+                    
+        RecycleView:
+            id: rv
+            key_viewclass: 'viewclass'
+            key_size: 'height'
+            RecycleBoxLayout:
+                padding: dp(10)
+                default_size: None, dp(48)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+<Tab2>:
+    MDRectangleFlatButton:
+        text: 'Set'
+        pos_hint: {"x":0.0, "y":0.5}
+        size_hint: 1.0, 0.2
+        font_size: 25
+        on_press: root.screen_manager.current = "scr 8"
+    MDRectangleFlatButton:
+        text: 'Match'
+        pos_hint: {"x":0.0, "y":0.2}
+        size_hint: 1.0, 0.2
+        font_size: 25
+        on_press: root.screen_manager.current = "scr 7"
+    
+      
+
+<ContentNavigationDrawer>
+    MDList:
+        OneLineListItem:
+            text: "Profile"
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 1"
+        OneLineListItem:
+            text: "ChatBot"
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 4"
+        OneLineListItem:
+            text: "YT to mp3/mp4"
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 2"
+        OneLineListItem:
+            text: "Check Password"
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 3"
+        OneLineListItem:
+            text: "Tic Toc Toe"
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 5"
+        OneLineListItem:
+            text: "URL Shortner"
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 6"
+MDScreen:
+    MDBoxLayout:
+        orientation: "vertical"
+        MDTopAppBar:
+            pos_hint: {"top": 1}
+            elevation: 4
+            title: "AI DRAGO"
+            left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+        
+        MDNavigationLayout:
+            MDScreenManager:
+                id: screen_manager
+                MDScreen:
+                    name: "scr 1"
+                    MDTabs:
+                        id: tabs
+                MDScreen:
+                    name: "scr 8"
+                    MDTextField:
+                        id: imgid
+                        size_hint: (1, None)
+                        multiline: False
+                        hint_text: "Enter ID"
+                        helper_text_mode:"on_focus"
+                        icon_left:"link-variant"
+                        pos_hint: {"center_x": 0.5, "center_y":0.5}
+                        height: "35dp"
+                        size_hint_x:None
+                        width:200
+                    # Short it button
+                    # This will short the given URl
+                    MDTextField:
+                        id: imgname
+                        size_hint: (1, None)
+                        multiline: False
+                        hint_text: "Enter Name"
+                        helper_text_mode:"on_focus"
+                        icon_left:"link-variant"
+                        height: "35dp"
+                        pos_hint: {"center_x": 0.5, "center_y":0.7}
+                        size_hint_x:None
+                        width:200
+                    # Short it button
+                    # This will short the given URl
+                    MDRectangleFlatButton:
+                        markup: True
+                        text: "Click"
+                        height: "35dp"
+                        pos_hint: {"center_x": 0.5, "center_y":0.3}
+                        halign: "center"
+                        on_press:
+                            app.setimg()
+                        
+                            
+                MDScreen:
+                    name: "scr 7"
+                    MDFloatLayout:
+                        FitImage:
+                            # this is where the video will show
+                            # the id allows easy access
+                            id: vid
+                            radius: 36
+                            allow_stretch: True  # allow the video image to be scaled
+                            keep_ratio: True  # keep the aspect ratio so people don't look squashed
+                            size_hint: 1.0, .5
+                            pos_hint: {'center_x':0.5, 'center_y':0.7}
+
+                        MDRectangleFlatButton:
+                            text: 'Start Video'
+                            pos_hint: {"x":0.0, "y":0.2}
+                            size_hint: 1.0, 0.2
+                            font_size: 25
+                            on_release: app.A()
+                        MDRectangleFlatButton:
+                            text: 'Stop Video'
+                            pos_hint: {"x":0.0, "y":0.0}
+                            size_hint: 1.0, 0.2
+                            font_size: 25
+                            on_release: app.stop_vid()
+                    
+                MDScreen:
+                    name: "scr 6"
+                    # Input box for URL
+                    MDTextField:
+                        id: URL
+                        size_hint: (1, None)
+                        multiline: False
+                        hint_text: "Enter Long URL"
+                        helper_text_mode:"on_focus"
+                        icon_left:"link-variant"
+                        height: "35dp"
+                        pos_hint: {"center_x": 0.5, "center_y":0.7}
+                        size_hint_x:None
+                        width:200
+                    # Short it button
+                    # This will short the given URl
+                    MDRectangleFlatButton:
+                        markup: True
+                        text: "[b]Short IT[/b]"
+                        height: "35dp"
+                        pos_hint: {"center_x": 0.5, "center_y":0.5}
+                        halign: "center"
+                        on_press:
+                            app.short_it()
+                    # First link label
+                    MDLabel:
+                        id: Link1
+                        size_hint: 0.9 , None
+                        height: "35dp"
+                        pos_hint: {"center_x": 0.5, "center_y":0.4}
+                        halign: "center"
+                        markup: True 
+                        on_ref_press:
+                            app.open_url(1)
+                    # Second link label
+                    MDLabel:
+                        id: Link2
+                        size_hint: 0.9 , None
+                        height: "35dp"
+                        pos_hint: {"center_x": 0.5, "center_y":0.3}
+                        halign: "center"
+                        markup: True 
+                        text: "[color=aaaaaa]XxX.XxX.XxX[/color]"
+                        bold: True
+                        on_ref_press:
+                            app.open_url(2)
+                    # Third link label
+                    MDLabel:
+                        id: Link3
+                        size_hint: 0.9 , None
+                        height: "35dp"
+                        pos_hint: {"center_x": 0.5, "center_y":0.2}
+                        halign: "center"
+                        markup: True 
+                        text: "[color=aaaaaa]XxX.XxX.XxX[/color]"
+                        bold: True
+                        on_ref_press:
+                            app.open_url(3)
+                    # Forth link label
+                    MDLabel:
+                        id: Link4
+                        size_hint: 0.9 , None
+                        height: "35dp"
+                        pos_hint: {"center_x": 0.5, "center_y":0.1}
+                        halign: "center"
+                        markup: True 
+                        text: "[color=aaaaaa]XxX.XxX.XxX[/color]"
+                        bold: True
+                        on_ref_press:
+                            app.open_url(4)
+                    # End Of Sipt
+
+
+                MDScreen:
+                    name: "scr 5"
+                    MDFloatLayout:
+                        MDGridLayout:
+                            size_hint:.5,.5
+                            pos_hint:{'center_x':0.5,'center_y':0.7}
+                            cols:3
+                            rows:3
+                            Button:
+                                id:btn1
+                                text:""
+                                font_size:"45sp"
+                                on_release:app.presser(btn1)
+                            Button:
+                                id:btn2
+                                text:""
+                                font_size:"45sp"
+                                on_release:app.presser(btn2)
+                            Button:
+                                id:btn3
+                                text:""
+                                font_size:"45sp"
+                                on_release:app.presser(btn3)
+                            Button:
+                                id:btn4
+                                text:""
+                                font_size:"45sp"
+                                on_release:app.presser(btn4)
+                            Button:
+                                id:btn5
+                                text:""
+                                font_size:"45sp"
+                                on_release:app.presser(btn5)
+                            Button:
+                                id:btn6
+                                text:""
+                                font_size:"45sp"
+                                on_release:app.presser(btn6)
+                            Button:
+                                id:btn7
+                                text:""
+                                font_size:"45sp"
+                                on_release:app.presser(btn7)
+                            Button:
+                                id:btn8
+                                text:""
+                                font_size:"45sp"
+                                on_release:app.presser(btn8)
+                            Button:
+                                id:btn9
+                                text:""
+                                font_size:"45sp"
+                                on_release:app.presser(btn9)
+                        MDLabel:
+                            id:game1
+                            font_size:"32sp"
+                            text:"X - 0 | O - 0"
+                            halign:"center"
+                            pos_hint:{"center_y":.3}
+                        MDRectangleFlatButton:
+                            id:restart
+                            text:"Restart the game"
+                            pos_hint:{"center_x":.5,"center_y":.15}
+                            on_release:app.restart1()
+                        MDLabel:
+                            id:score
+                            font_size:"14sp"
+                            text:"X's Turn!"
+                            halign:"center"
+                            pos_hint:{"center_x":.5,"center_y":.05}
+                    
+                MDScreen:
+                    name: "scr 2"
+                    MDTextField:
+                        id: url_input
+                        hint_text:"Enter URL"
+                        helper_text:"*URL"
+                        helper_text_mode:"on_focus"
+                        icon_left:"link-variant"
+                        pos_hint:{'center_x':0.5,'center_y':0.55}                         
+                        size_hint_x:None
+                        width:200
+                        font_size:'20dp'
+                    MDRectangleFlatButton:
+                        text: 'Download MP3'
+                        font_size:'20dp'
+                        pos_hint:{'center_x': 0.5, 'center_y': 0.35}
+                        on_press: app.download_mp3()
+                    MDRectangleFlatButton:
+                        text: 'Download MP4'
+                        font_size:'20dp'
+                        pos_hint:{'center_x':0.5,'center_y':0.25}
+                        on_press: app.download_mp4()
+                    
+
+                MDScreen:
+                    name: "scr 3"
+                    MDTextField:
+                        id:user_input1
+                        hint_text:"Enter Password"
+                        font_size:'20dp'
+                        helper_text:"*Password"
+                        helper_text_mode:"on_focus"
+                        icon_left:"key"
+                        pos_hint:{'center_x':0.5,'center_y':0.55}                         
+                        size_hint_x:None
+                        width:200
+                    MDRectangleFlatButton:
+                        
+                        text:"Check"
+                        font_size:'20dp'
+                        pos_hint:{'center_x': 0.5, 'center_y': 0.4}
+                        
+                        on_press:app.show_data()
+                
+
+                MDScreen:
+                    name: "scr 4"
+                    MDBoxLayout:
+                        size_hint_y: 0.8
+                        orientation: 'vertical'
+                        MDScrollView:
+                            id: chat_scroll
+                            MDList:
+                                id: chat_layout
+                            
+                        MDBoxLayout:
+                            orientation: 'horizontal'
+                            MDTextField:
+                                id: user_input
+                                size_hint_x: 0.8
+                                multiline: False
+                                font_size:'20dp'
+                                helper_text_mode:"on_focus"
+                                icon_left:"robot"
+
+                                on_text_validate: app.send_message()
+                            MDIconButton:
+                                icon:"send"
+                                size_hint_x: 0.2
+                                on_press: app.send_message()
+                        
+
+            MDNavigationDrawer:
+                id: nav_drawer
+                radius: (0, 16, 16, 0)
+                ContentNavigationDrawer:
+                    screen_manager: screen_manager
+                    nav_drawer: nav_drawer
